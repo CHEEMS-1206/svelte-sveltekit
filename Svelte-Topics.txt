@@ -68,6 +68,7 @@
 . components and component architecture.
 . Procedure of creating and using components.
 . Props in svelte
+. Context API in svelte
 
 // Binding data from scripts section to markup in markups section
 ** scripts section allows us to write js code, markup section can use that js code from scripts inside itself using the {} operator.
@@ -260,3 +261,21 @@ ex      <script>
     ex export propName = 'default value'
     2) if the prop is in an object in parent we can spread it in props for child component.
     ex <ComponentName prop={...objectName} />
+
+// Context API in svelte and its use 
+. suppose we have multiple chained component like: 
+        root -> cA 
+             -> cB -> cD 
+             -> cC -> cE -> cE 
+. now if we have some value defined in root that we want to use in cA, cD and cE there can be 2 ways:
+    1) passing props - we can pass value by using concept of props from component to component.
+       this has downside that all component without having to use the value have to pass them making the code bulky.
+    2) using context API - we can set context in app component and than we can get context in all the conmponents without having the need to get value passed as props.
+    ex --> in root component in script tag 
+           import {setContext} from 'svelte'
+           // --> setContext(key,value) - we have to give a key and corresponding value 
+           const contextValue = "value"
+           setContext("contextValueKey",contextValue)
+       --> in child component in script tag 
+           import {getContext} from 'svelte'
+           const requiredValue = getContext("contextValueKey")

@@ -11,6 +11,10 @@
 		name : "Rajesh",
 		rollNum : 5
 	}
+	// setting the context for child to access
+	import { setContext } from "svelte";
+	const contextValue = "Good Morning !"
+	setContext("contextKey", contextValue)
 </script>
 
 <main>
