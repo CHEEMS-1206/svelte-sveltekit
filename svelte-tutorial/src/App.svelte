@@ -15,6 +15,13 @@
 	import { setContext } from "svelte";
 	const contextValue = "Good Morning !"
 	setContext("contextKey", contextValue)
+
+  	import Popup from "./components/Popup.svelte";
+	let show = false
+	function closePopup(event){
+		show = false
+		console.log(event.detail) // accesing values passed from child component via custom event
+	}
 </script>
 
 <main>
@@ -22,7 +29,13 @@
 		<Greet name={user.firstName + " " + user.lastName} rollNum={index+1} />
 	{/each}
 	<Greet /> <!--Default prop in child is used-->
-	<Greet {...spread} /> <!-- Spreading an object in parent for child to get values-->
+	<Greet {...spread} /> <!-- Spreading an object in parent for child to get values--> 
+
+	<!-- popup handling via custom component events  -->
+	<button on:click={()=> show = true}>Show Popup</button>
+	{#if show}
+		<Popup on:close={closePopup}/> <!--Using custom made component event dispatched from child component-->
+	{/if}
 </main>
 
 <style>

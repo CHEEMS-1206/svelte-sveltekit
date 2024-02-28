@@ -69,6 +69,7 @@
 . Procedure of creating and using components.
 . Props in svelte
 . Context API in svelte
+. Component events - creating our own custom events
 
 // Binding data from scripts section to markup in markups section
 ** scripts section allows us to write js code, markup section can use that js code from scripts inside itself using the {} operator.
@@ -279,3 +280,10 @@ ex      <script>
        --> in child component in script tag 
            import {getContext} from 'svelte'
            const requiredValue = getContext("contextValueKey")
+
+// Component events and custom events
+. we have many ways to pass data from parent to child but when it comes to the reverse process we have only one way to do so. by creating custom events.
+    define event in child component
+    use createEventDispatcher to create a dispatch and dispatch custom events to the parent along with data if any.
+    in parent we can listen to those custom events and use that for our advantage.
+    ex popup control from child component.
