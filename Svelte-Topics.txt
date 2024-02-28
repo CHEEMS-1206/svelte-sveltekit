@@ -65,6 +65,8 @@
 . binding data from scripts section to markup section
 . form handling in svelte (using bind:, event firing and event modifier using '|')
 . reactivity in svelte : reactive declarations, reactive statements
+. components and component architecture.
+. Procedure of creating and using components.
 
 // Binding data from scripts section to markup in markups section
 ** scripts section allows us to write js code, markup section can use that js code from scripts inside itself using the {} operator.
@@ -233,3 +235,18 @@ ex      <script>
             <h1> Hello {firstName lastName} </h1>
             <h1> Hello {fullname} </h1> 
         </markup>
+
+// Components and Component architecture
+. like react and angular svelte is also component based.
+. we can have multiple component files representing the part of the entire application, than we can compose them all together to make meaningful UI.
+. every application can be broken down into multiple Components and defined in different files. there by making code more maintainable.
+. components are reusable and hence helps in following DRY principle.
+. every component that being a .svelte file have 3 sections scripts, markups and style for defining the UI.
+
+// Procedure of creating and using Components
+. create a .svelte file.
+. define scripts, markup and style for the component.
+. in the app.svelte file in scripts import the component files.
+. in the app.svelte file in markup use components as tags and manipulate them.
+
+// 
