@@ -1,9 +1,9 @@
 // Svelte 
 => Features
-. component framework use to build high performance web-apps.
-. allows user to create app in declarative manner.
-. has built in compiler for rendering much of the work in compile time there by reducing bundlesize and browser work load.
-. has its own svelte store for state management and several features for better developer experience
+    . component framework use to build high performance web-apps.
+    . allows user to create app in declarative manner.
+    . has built in compiler for rendering much of the work in compile time there by reducing bundlesize and browser work load.
+    . has its own svelte store for state management and several features for better developer experience
 
 // SvelteKit
 . application framework on top of svelte 
@@ -69,8 +69,9 @@
 . Procedure of creating and using components.
 . Props in svelte
 . Context API in svelte
-. Component events - creating our own custom events
-. Event forwarding
+. Component events - creating our own custom events - (createEventDispatcher and dispatch)
+. Event forwarding (on:customEvent)
+. Slots in svelte 
 
 // Binding data from scripts section to markup in markups section
 ** scripts section allows us to write js code, markup section can use that js code from scripts inside itself using the {} operator.
@@ -171,10 +172,10 @@
 
 // Form handling in svelte
 . use 'bind:' directive to bind data from form inputs to data in script tag.
--> bind:values - input, textarea, dropdown etc
--> bind:checked - checkbox
--> bind:grouped - multiple checkbox 
--> bind:grouped - radio
+    -> bind:values - input, textarea, dropdown etc
+    -> bind:checked - checkbox
+    -> bind:grouped - multiple checkbox 
+    -> bind:grouped - radio
 . submitting form using submit event and event Binding
 ex  <script>
         const formValues = {
@@ -241,17 +242,17 @@ ex      <script>
         </markup>
 
 // Components and Component architecture
-. like react and angular svelte is also component based.
-. we can have multiple component files representing the part of the entire application, than we can compose them all together to make meaningful UI.
-. every application can be broken down into multiple Components and defined in different files. there by making code more maintainable.
-. components are reusable and hence helps in following DRY principle.
-. every component that being a .svelte file have 3 sections scripts, markups and style for defining the UI.
+    . like react and angular svelte is also component based.
+    . we can have multiple component files representing the part of the entire application, than we can compose them all together to make meaningful UI.
+    . every application can be broken down into multiple Components and defined in different files. there by making code more maintainable.
+    . components are reusable and hence helps in following DRY principle.
+    . every component that being a .svelte file have 3 sections scripts, markups and style for defining the UI.
 
 // Procedure of creating and using Components
-. create a .svelte file.
-. define scripts, markup and style for the component.
-. in the app.svelte file in scripts import the component files.
-. in the app.svelte file in markup use components as tags and manipulate them.
+    . create a .svelte file.
+    . define scripts, markup and style for the component.
+    . in the app.svelte file in scripts import the component files.
+    . in the app.svelte file in markup use components as tags and manipulate them.
 
 // Props in svelte
 . These are custom defined attributes to the tags used out of component.
@@ -296,3 +297,5 @@ ex      <script>
   this way we can pass fn from deeply nested components to parent or even root components.
   ** DOM events can also be forwarded from child to parent component.
   ex on:click 
+
+// Slots 
