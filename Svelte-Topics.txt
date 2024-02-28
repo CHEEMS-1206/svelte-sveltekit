@@ -255,3 +255,8 @@ ex      <script>
 . using props can be acheived in 2 steps :
     1) define custom attribute in parent component
     2) define same named variables in script tag of component, and bind it to the values in the file.
+. few features of props :
+    1) we can assign default value to props as well in child component
+    ex export propName = 'default value'
+    2) if the prop is in an object in parent we can spread it in props for child component.
+    ex <ComponentName prop={...objectName} />

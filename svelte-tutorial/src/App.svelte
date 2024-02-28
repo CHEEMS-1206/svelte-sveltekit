@@ -7,12 +7,18 @@
 		{firstName : "Priyanshu", lastName : "Singh"},
 		{firstName : "Anuj", lastName : "Singh"}
 	]
+	const spread = {
+		name : "Rajesh",
+		rollNum : 5
+	}
 </script>
 
 <main>
 	{#each users as user, index}
 		<Greet name={user.firstName + " " + user.lastName} rollNum={index+1} />
 	{/each}
+	<Greet /> <!--Default prop in child is used-->
+	<Greet {...spread} /> <!-- Spreading an object in parent for child to get values-->
 </main>
 
 <style>
