@@ -70,6 +70,7 @@
 . Props in svelte
 . Context API in svelte
 . Component events - creating our own custom events
+. Event forwarding
 
 // Binding data from scripts section to markup in markups section
 ** scripts section allows us to write js code, markup section can use that js code from scripts inside itself using the {} operator.
@@ -287,3 +288,11 @@ ex      <script>
     use createEventDispatcher to create a dispatch and dispatch custom events to the parent along with data if any.
     in parent we can listen to those custom events and use that for our advantage.
     ex popup control from child component.
+
+// Event forwarding
+. Suppose we have to listen to a certain custom event of deeply nested component than we can use event forwarding.
+  we deine custom event but instead of listening to it in parent we pass it on to its parent
+  ex on:customEvent
+  this way we can pass fn from deeply nested components to parent or even root components.
+  ** DOM events can also be forwarded from child to parent component.
+  ex on:click 

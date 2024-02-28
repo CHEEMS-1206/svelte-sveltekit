@@ -22,6 +22,14 @@
 		show = false
 		console.log(event.detail) // accesing values passed from child component via custom event
 	}
+
+	// Event forwarding
+	import Outer from "./components/EventForwarding/Outer.svelte";
+	// fn that deals with forwarded events
+	function greetFn(event){
+        console.log("we have in app : ")
+        console.log(event.detail)
+    }
 </script>
 
 <main>
@@ -36,6 +44,9 @@
 	{#if show}
 		<Popup on:close={closePopup}/> <!--Using custom made component event dispatched from child component-->
 	{/if}
+
+	<!-- Event forwarding  -->
+	<Outer on:greetEvent={(event)=>greetFn(event)}/> <!--Event handled by child->child component-->
 </main>
 
 <style>
