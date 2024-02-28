@@ -1,8 +1,9 @@
 <script>
-    
+    // export props name from child component and bind them in content
+    export let name, rollNum
 </script>
 <main>
-    <h1>Hello World</h1>
+    <h1>Hello {name} your roll number is {rollNum}</h1>
 </main>
 <style>
 

@@ -67,6 +67,7 @@
 . reactivity in svelte : reactive declarations, reactive statements
 . components and component architecture.
 . Procedure of creating and using components.
+. Props in svelte
 
 // Binding data from scripts section to markup in markups section
 ** scripts section allows us to write js code, markup section can use that js code from scripts inside itself using the {} operator.
@@ -249,4 +250,8 @@ ex      <script>
 . in the app.svelte file in scripts import the component files.
 . in the app.svelte file in markup use components as tags and manipulate them.
 
-// 
+// Props in svelte
+. These are custom defined attributes to the tags used out of component.
+. using props can be acheived in 2 steps :
+    1) define custom attribute in parent component
+    2) define same named variables in script tag of component, and bind it to the values in the file.
