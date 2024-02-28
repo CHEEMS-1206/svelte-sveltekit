@@ -1,0 +1,235 @@
+// Svelte 
+=> Features
+. component framework use to build high performance web-apps.
+. allows user to create app in declarative manner.
+. has built in compiler for rendering much of the work in compile time there by reducing bundlesize and browser work load.
+. has its own svelte store for state management and several features for better developer experience
+
+// SvelteKit
+. application framework on top of svelte 
+    ex React -> Next.js, Vue -> Nuxt.js, Svelte -> SvelteKit
+. has additional features of Routing and SSR.
+
+// Hello world in svelte
+    npx degit sveltejs/template project-name
+    cd project-name
+    npm i
+    npm run dev 
+
+// project structure
+
+** FOLDERS
+> node_modules    -> containes all the dev dependencies folders
+> public          -> conatins static assets published when we go live with the project
+                  -> favicon, globalStyle.css, index.html, build folder -> contains bundle.css, bundle.js and bundle.js.map files
+                  ** we typically never make changes in public folder
+> scripts         -> contains a file for typescript setup in svelte.
+> src             -> conatins main.js which is the starting point of the application, App.svelte file for rendering svelte code based ui
+                  ** folder we will mostly work in 
+                  ** .svelte file allows us to write HTML, CSS ans JS code for UI of the component in declarative manner.
+** FILES
+* package.json    -> contains dev dependencies and scripts for the project
+                  -> svelte, rollup and its dependencies, sirv-cli, and project scripts
+* package-lock.json -> lock file of package.json
+* .gitignore      -> git ignore file
+* rollup.config.js-> configuration code for rollup (moule bundeler)
+* README.md       -> read me file for the project 
+
+// svelte app program flow
+    npm run dev -> starts the project 
+    index.html served in browser, it has bundle.js which transpiled from main.js this main.js has transpiled code from App.svelte file.
+
+// About .svelte files
+  . custom file format that allows to write HTML-type syntax to define UI components.
+  . each .svelte file has 3 ypes of top level langauge blocks
+     - scripts - to maintain logic, data and functions of the UI
+     - markups - actual html for structure of the UI
+     - styles  - styles for the markups written in markup section
+     * browser doesnt understands svelte code and hence we use rollup to transpile svelte code in native html, css and for browser.
+     * every application can have tonnes of .svelte files each denoting a component.
+
+// Key Points
+. Component Framework
+. Declarative model (Svelte) vs Imperative model (Vanilla JS)
+. Svelte Store 
+. SvelteKit (application framework) vs Svelte
+. Routing
+. SSR
+. Hello world in svelte
+. Folder structure of svelte project
+. Program flow of svelte project
+. svelte 3 (used in compilation phase and never bundeled with code to browser)
+. rollup (module bundeler - transpiles the svelte code to js code)
+. sirv-cli (runs static file server)
+. svelte files structure and functions 
+. binding data from scripts section to markup section
+. form handling in svelte (using bind:, event firing and event modifier using '|')
+. reactivity in svelte : reactive declarations, reactive statements
+
+// Binding data from scripts section to markup in markups section
+** scripts section allows us to write js code, markup section can use that js code from scripts inside itself using the {} operator.
+
+    1)   Binding texts - define text in scripts and use them in markups.
+    ex   <script> 
+            const name = "batman"; 
+         </script>
+         <markup> 
+            <h1> Hello {name} </h1> 
+         </markup>
+
+    2)   Binding html - define html in scripts and use them in markups.
+    ex   <script> 
+            const name = "<b>batman</b>"; 
+         </script>
+         <markup> 
+            <h1> Hello {@html name} </h1> 
+         </markup>
+         * keep in mind only render text that actually has an html tag else program will fail.
+         * beware of using @html when dealing with 3rd party API as they might injest unwanted html tags for vulnerabilities.
+
+    3)   Binding attributes - define attributes in scripts and use them in markups.
+    ex   <script> 
+            const idForHeading = "batman"; 
+            const disabled = true; 
+         </script>
+         <markup> 
+            <h1 id={idForHeading}> Hello {name} </h1> // assigning attributes 
+            <button {disabled}> Button </button>  // assigning boolean attributes
+         </markup>
+
+    4)   Binding classes - define class in scripts and use them in markups.
+    ex   <script> 
+            const classForHeading = "batman"; 
+            const isValid = true;
+         </script>
+         <markup> 
+            <h1 class={classForHeading}> Hello {name} </h1> // assigning classes 
+            <h1 class={isValid ? classForHeading : " "}> Hello {name} </h1> // using ternary operator
+            <h1 class:classForHeading{isValid}> Hello {name} </h1> // sveltes own way
+         </markup>
+
+    5)   Conditional rendering - #if for starting
+                                 :else and :else if for other conditionals
+                                 /if for ending
+    ex   <script>
+            const value = 1;
+         </script>
+         <markup>
+            {#if value == 1}
+                <h1> Value is 1 </h1>
+            {:else if value == 2}
+                <h1> Value is 2 </h1>
+            {:else}
+                <h1> Value is other </h1>
+            {/if}
+         </markup>
+    
+    6)   List rendering - #each for starting the loop block 
+                          /each for ending the loop block 
+                          ** is provides alias to name every element and also index for indexing, and () for keying
+    ex   <script>
+            const names = ["name1", "name2", "name3"]; // rendering list
+            const objectOfNames = [
+                {first : 'asha', last : "bhosle"},
+                {first : 'raman', last : "tagore"},
+                {first : 'ustad', last : "pategar"}
+            ]
+         </script>
+         <markup>
+            {#each names as name,index,(name)} // get every element from names list and render it as name, having index as index and key as name
+                <h1> {index+1}th Name is {name} </h1>
+            {/each}
+            {#each names as name,index,(name.first+name.last)} // rendering key is very important hence svelte provides inbuilt method to acheive it
+                <h1> {index+1}th Name is {name.first + " " + name.last} </h1>
+            {/each}
+         </markup> 
+
+    7)   Event handling - listening to events, on:ebentName
+                          using call backs to pass dynamic data to functions
+                          getting access to event 
+    ex   <script> 
+            let count = 0
+            function incCountStatic(){
+                count = count + 1;
+            }
+            function incCountDynamic(e, stepsize){
+                count = count + stepsize;
+            }
+         </script>
+         <markup> 
+            <h1> {count} </h1>
+            <button on:lick={()=>{count = count+1}}> Inc Count </button>
+            <button on:click={incCountStatic}> Inc Count </button> 
+            <button on:click={(event) => incCountDynamic(event,6)}> Inc Count </button> // dynamically passing stepsize in callback
+         </markup>
+
+// Form handling in svelte
+. use 'bind:' directive to bind data from form inputs to data in script tag.
+-> bind:values - input, textarea, dropdown etc
+-> bind:checked - checkbox
+-> bind:grouped - multiple checkbox 
+-> bind:grouped - radio
+. submitting form using submit event and event Binding
+ex  <script>
+        const formValues = {
+            name : "", // single data 
+            sports : [] // automatically pushes elements in this array when multiple enties are selected
+        };
+        function submitForm(event)={
+            event.preventDefault();
+            console.log(formValues)
+        }
+        function submitFormWithoutEvent()={
+            console.log(formValues)
+        }
+    </script>
+    <markup>
+        <div>
+            <pre>{JSON.stringify(formValues, null, 2)}</pre>
+        </div>
+        <form on:submit={submitForm}> // here event submit fired and fn submitForm is called
+        <form on:submit|preventDefault={submitFormWithoutEvent}> // added event modifier using '|' character
+            <div>
+                <label for="name"> Name </h1>
+                <input type="text" id="name" bind:value={formValues.name} />
+            </div>
+            <div>
+                <label for="sports"> Sports </h1>
+                <select id="sports" bind:value={formValues.sports} multiple>
+                    <option value="">Select sports</option>
+                    <option value="cricket"> Cricket </option>
+                    <option value="badminton"> Badminton </option>
+                </select>
+            </div>
+        </form>
+    </markup>
+
+// Reactivity in svelte - used for maintaining readabilty, DRY principle and abstraction of details
+. Reactive declarations - to make code more readable and maintainable. using '$:'
+                        - we can define declarations in script tag
+ex      <script> 
+            const firstName = "bat"; 
+            const lastName = "man";
+            $:fullname = `${firstName} ${lastName}` // declarative var as a combination of two variables
+        </script>
+        <markup> 
+            <h1> Hello {firstName lastName} </h1>
+            <h1> Hello {fullname} </h1> 
+        </markup>
+
+. Reactive statements - to make code more readable and maintainable. using '$:'
+                        - we can define statements insde the script tag
+                        - we can use RS for handling fns in script tag itself.
+ex      <script> 
+            const firstName = "bat"; 
+            const lastName = "man";
+            $: console.log(`${firstName} ${lastName}`) // declarative var as a combination of two variables as a single line statement
+            $: {
+                    const greet = `${firstName} ${lastName}`
+                    console.log(great)
+                }
+        </script>
+        <markup> 
+            <h1> Hello {firstName lastName} </h1>
+            <h1> Hello {fullname} </h1> 
+        </markup>
